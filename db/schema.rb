@@ -10,10 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_17_172835) do
+ActiveRecord::Schema.define(version: 2018_08_17_193831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.string "author"
+    t.string "url"
+    t.string "urlToImage"
+    t.string "sourceId"
+    t.string "sourceName"
+    t.datetime "publishedAt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_bookmarks_on_article_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -21,4 +43,6 @@ ActiveRecord::Schema.define(version: 2018_08_17_172835) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookmarks", "articles"
+  add_foreign_key "bookmarks", "users"
 end
