@@ -7,4 +7,5 @@ Rails.application.routes.draw do
       resources :bookmarks, only: [:index, :update, :create, :destroy]
     end
   end
+
 end
