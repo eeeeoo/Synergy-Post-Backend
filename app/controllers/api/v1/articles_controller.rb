@@ -1,8 +1,9 @@
 class Api::V1::ArticlesController < ApplicationController
   before_action :find_article, only: [:update]
-    def index
-      @articles = Article.all
-      render json: @articles
+
+  def index
+    @articles = Article.all
+    render json: @articles
   end
 
   def update
