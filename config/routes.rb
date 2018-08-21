@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post 'login', to: 'users#login'
-      
-      resources :users
+
+      resources :users, only: [:index, :create, :update, :destroy]
 
       resources :articles, only: [:index, :update, :create, :destroy]
       resources :bookmarks, only: [:index, :update, :create, :destroy]

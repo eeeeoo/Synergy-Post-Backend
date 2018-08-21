@@ -1,11 +1,19 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[login create]
-  before_action :find_user, only: [:update]
+  before_action :find_user, only: [:update, :index]
+
+  # def index
+  #   @users = User.all
+  #   render json: @users
+  # end
 
   def index
-    @users = User.all
-    render json: @users
+    render json: @user
   end
+  #
+  # def show
+  #   render json: @user
+  # end
 
   def update
     @user.update(user_params)
@@ -29,21 +37,9 @@ class Api::V1::UsersController < ApplicationController
     @user.delete
   end
 
-  # POST /register
-  # def create
-  #   @user = User.find_or_create_by(user_params)
-  #  if @user.save
-  #   response = { message: 'User created successfully'}
-  #   render json: response, status: :created
-  #  else
-  #   render json: @user.errors, status: :bad
-  #  end
-  # end
-
   def login
     authenticate params[:email], params[:password]
   end
-
 
   def authenticate(email, password)
     command = AuthenticateUser.call(email, password)
@@ -67,6 +63,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def find_user
-    @user = User.find(params[:id])
+    @user = current_user
   end
 end
