@@ -1,8 +1,10 @@
 class Api::V1::BookmarksController < ApplicationController
+  skip_before_action :authenticate_request, only: %i[login create]
   before_action :find_bookmark, only: [:update]
-    def index
-      @bookmarks = Bookmark.all
-      render json: @bookmarks
+
+  def index
+    @bookmarks = Bookmark.all
+    render json: @bookmarks
   end
 
   def update

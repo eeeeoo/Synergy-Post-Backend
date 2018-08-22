@@ -47,7 +47,7 @@ class Api::V1::UsersController < ApplicationController
     if command.success?
       render json: {
         access_token: command.result,
-        message: 'Login Successful'
+        message: 'Login Successful',
       }
     else
       render json: { error: command.errors }, status: :unauthorized

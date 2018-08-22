@@ -1,4 +1,5 @@
 class Api::V1::ArticlesController < ApplicationController
+  skip_before_action :authenticate_request, only: %i[login create]
   before_action :find_article, only: [:update]
 
   def index
@@ -28,7 +29,7 @@ class Api::V1::ArticlesController < ApplicationController
     @article.delete
   end
 
-  private
+
 
   def article_params
     params.permit(:title, :content, :author, :url, :urlToImage, :sourceId, :sourceName, :publishedAt)
